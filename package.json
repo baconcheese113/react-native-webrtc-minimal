@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "react": "16.9.0",
-    "react-native": "0.61.2",
-    "react-native-webrtc": "^1.75.1"
+    "react-native": "0.61.4",
+    "react-native-webrtc": "^1.75.2"
   },
   "devDependencies": {
     "@babel/core": "7.6.3",
     "@babel/runtime": "7.6.3",
     "@react-native-community/eslint-config": "0.0.3",
     "eslint": "^5.16.0",
-    "flow-bin": "^0.109.0",
+    "flow-bin": "^0.112.0",
     "metro-react-native-babel-preset": "0.51.1"
   }
 }
