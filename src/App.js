@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import {View, Button, StyleSheet} from 'react-native';
+import {View, SafeAreaView, Button, StyleSheet} from 'react-native';
 
 import {RTCPeerConnection, RTCView, mediaDevices} from 'react-native-webrtc';
 
@@ -110,7 +110,7 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {!localStream && <Button title="Click to start stream" onPress={startLocalStream} />}
       {localStream && <Button title="Click to start call" onPress={startCall} disabled={!!remoteStream} />}
 
@@ -121,7 +121,7 @@ export default function App() {
         {remoteStream && <RTCView style={styles.rtc} streamURL={remoteStream.toURL()} />}
       </View>
       <Button title="Click to stop call" onPress={closeStreams} disabled={!remoteStream} />
-    </View>
+    </SafeAreaView>
   );
 }
 
