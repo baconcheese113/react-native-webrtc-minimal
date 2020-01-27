@@ -9,6 +9,8 @@ export default function App() {
   const [cachedLocalPC, setCachedLocalPC] = React.useState();
   const [cachedRemotePC, setCachedRemotePC] = React.useState();
 
+  const [isMuted, setIsMuted] = React.useState(false);
+
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
     const isFront = true;
@@ -95,6 +97,18 @@ export default function App() {
     localStream.getVideoTracks().forEach(track => track._switchCamera());
   };
 
+  // Mutes the local's outgoing audio
+  const toggleMute = () => {
+    if (!remoteStream) return;
+    localStream.getAudioTracks().forEach(track => {
+      if (track.kind === 'audio') {
+        console.log(track.enabled ? 'muting' : 'unmuting', ' local track', track);
+        track.enabled = !track.enabled;
+        setIsMuted(!track.enabled);
+      }
+    });
+  };
+
   const closeStreams = () => {
     if (cachedLocalPC) {
       cachedLocalPC.removeStream(localStream);
@@ -115,7 +129,12 @@ export default function App() {
       {!localStream && <Button title="Click to start stream" onPress={startLocalStream} />}
       {localStream && <Button title="Click to start call" onPress={startCall} disabled={!!remoteStream} />}
 
-      {localStream && <Button title="Switch camera" onPress={switchCamera} />}
+      {localStream && (
+        <View style={styles.toggleButtons}>
+          <Button title="Switch camera" onPress={switchCamera} />
+          <Button title={`${isMuted ? 'Unmute' : 'Mute'} stream`} onPress={toggleMute} disabled={!remoteStream} />
+        </View>
+      )}
 
       <View style={styles.rtcview}>
         {localStream && <RTCView style={styles.rtc} streamURL={localStream.toURL()} />}
@@ -148,5 +167,10 @@ const styles = StyleSheet.create({
   rtc: {
     width: '80%',
     height: '100%',
+  },
+  toggleButtons: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
