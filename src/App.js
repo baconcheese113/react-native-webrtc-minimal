@@ -101,11 +101,9 @@ export default function App() {
   const toggleMute = () => {
     if (!remoteStream) return;
     localStream.getAudioTracks().forEach(track => {
-      if (track.kind === 'audio') {
-        console.log(track.enabled ? 'muting' : 'unmuting', ' local track', track);
-        track.enabled = !track.enabled;
-        setIsMuted(!track.enabled);
-      }
+      console.log(track.enabled ? 'muting' : 'unmuting', ' local track', track);
+      track.enabled = !track.enabled;
+      setIsMuted(!track.enabled);
     });
   };
 
