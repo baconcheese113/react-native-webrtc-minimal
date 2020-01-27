@@ -1,8 +1,3 @@
-/**
- * @format
- * @flow
- */
-
 import React from 'react';
 import {View, SafeAreaView, Button, StyleSheet} from 'react-native';
 
@@ -15,10 +10,11 @@ export default function App() {
   const [cachedRemotePC, setCachedRemotePC] = React.useState();
 
   const startLocalStream = async () => {
+    // isFront will determine if the initial camera should face user or environment
     const isFront = true;
     const devices = await mediaDevices.enumerateDevices();
 
-    const facing = isFront ? 'front' : 'back';
+    const facing = isFront ? 'front' : 'environment';
     const videoSourceId = devices.find(device => device.kind === 'videoinput' && device.facing === facing);
     const facingMode = isFront ? 'user' : 'environment';
     const constraints = {
@@ -38,6 +34,7 @@ export default function App() {
   };
 
   const startCall = async () => {
+    // You'll most likely need to use a STUN server at least. Look into TURN and decide if that's necessary for your project
     const configuration = {iceServers: [{url: 'stun:stun.l.google.com:19302'}]};
     const localPC = new RTCPeerConnection(configuration);
     const remotePC = new RTCPeerConnection(configuration);
@@ -94,6 +91,10 @@ export default function App() {
     setCachedRemotePC(remotePC);
   };
 
+  const switchCamera = () => {
+    localStream.getVideoTracks().forEach(track => track._switchCamera());
+  };
+
   const closeStreams = () => {
     if (cachedLocalPC) {
       cachedLocalPC.removeStream(localStream);
@@ -113,6 +114,8 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       {!localStream && <Button title="Click to start stream" onPress={startLocalStream} />}
       {localStream && <Button title="Click to start call" onPress={startCall} disabled={!!remoteStream} />}
+
+      {localStream && <Button title="Switch camera" onPress={switchCamera} />}
 
       <View style={styles.rtcview}>
         {localStream && <RTCView style={styles.rtc} streamURL={localStream.toURL()} />}
