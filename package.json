@@ -10,15 +10,15 @@
     "clean": "cd android && gradlew clean"
   },
   "dependencies": {
-    "react": "16.11.0",
-    "react-native": "^0.62.2",
-    "react-native-webrtc": "^1.75.3"
+    "react": "16.13.1",
+    "react-native": "^0.63.3",
+    "react-native-webrtc": "^1.87.1"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/runtime": "7.9.2",
-    "@react-native-community/eslint-config": "1.0.0",
-    "eslint": "^6.8.0",
-    "metro-react-native-babel-preset": "0.58.0"
+    "@babel/core": "7.12.9",
+    "@babel/runtime": "7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "eslint": "^7.14.0",
+    "metro-react-native-babel-preset": "^0.64.0"
   }
 }
