@@ -6,7 +6,7 @@ The most basic local-only implementation of react-native-webrtc possible.
 - Switch Video source before and during calls
 - Mute/Unmute audio
 - Uses functional components and React Native 0.63+
-- Uses Hermes instead of the full Javascript engine
+- ~~Uses Hermes instead of the full Javascript engine~~
 
 ## Usage
 
